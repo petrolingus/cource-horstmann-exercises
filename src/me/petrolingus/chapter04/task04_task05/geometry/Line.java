@@ -7,7 +7,7 @@ public class Line extends Shape {
     private final Point to;
 
     public Line(Point from, Point to) {
-        super(new Point(from.x - to.x, from.y - to.y));
+        super(new Point((from.x + to.x) / 2.0, (from.y + to.y) / 2.0));
         this.from = from;
         this.to = to;
     }
