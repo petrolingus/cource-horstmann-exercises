@@ -1,6 +1,8 @@
 package me.petrolingus.chapter03.task01_task02;
 
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.NoSuchElementException;
 
 /**
  * <h1>Cay S. Horstmann: Core Java SE 9.</h1>
@@ -29,14 +31,19 @@ public class Solution {
 
     public static void main(String[] args) {
 
-        Employee tomEmployee = new Employee(130.0);
-        Employee jerryEmployee = new Employee(260.0);
-        Employee spikeEmployee = new Employee(1300.0);
+        Employee tomEmployee = new Employee("Tom", 130.0);
+        Employee jerryEmployee = new Employee("Jerry", 260.0);
+        Employee spikeEmployee = new Employee("Spike", 1300.0);
 
         Employee[] employees = {tomEmployee, jerryEmployee, spikeEmployee};
 
         System.out.println("Classic method: " + average(employees));
         System.out.println("Stream API:     " + averageWithStreamApi(employees));
+
+        System.out.print("The employee's name which have largest salary (classic): ");
+        System.out.println(((Employee)largest(employees)).getName());
+        System.out.print("The employee's name which have largest salary (Stream API): ");
+        System.out.println(((Employee)largestWithStreamApi(employees)).getName());
     }
 
     private static double average(Measurable[] objects) {
@@ -52,5 +59,21 @@ public class Solution {
                 .mapToDouble(Measurable::getMeasure)
                 .average()
                 .orElse(Double.NaN);
+    }
+
+    private static Measurable largest(Measurable[] objects) {
+        int index = 0;
+        for (int i = 1; i < objects.length; i++) {
+            if (objects[index].getMeasure() < objects[i].getMeasure()) {
+                index = i;
+            }
+        }
+        return objects[index];
+    }
+
+    private static Measurable largestWithStreamApi(Measurable[] objects) {
+        return Arrays.stream(objects)
+                .max(Comparator.comparingDouble(Measurable::getMeasure))
+                .orElseThrow(NoSuchElementException::new);
     }
 }
