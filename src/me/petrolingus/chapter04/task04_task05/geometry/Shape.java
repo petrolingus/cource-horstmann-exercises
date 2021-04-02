@@ -14,4 +14,6 @@ public abstract class Shape {
     }
 
     public abstract Point getCenter();
+
+    public abstract Shape clone();
 }

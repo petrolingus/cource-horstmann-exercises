@@ -14,6 +14,10 @@ public class Circle extends Shape {
         return center;
     }
 
+    @Override
+    public Circle clone() {
+        return new Circle(new Point(center.x, center.y), radius);
+    }
 
     @Override
     public String toString() {

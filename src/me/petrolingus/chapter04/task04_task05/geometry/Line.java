@@ -18,6 +18,13 @@ public class Line extends Shape {
     }
 
     @Override
+    public Shape clone() {
+        Point clonedFrom = new Point(from.x, from.y);
+        Point clonedTo = new Point(to.x, to.y);
+        return new Line(clonedFrom, clonedTo);
+    }
+
+    @Override
     public String toString() {
         return "Line[" +
                 "from=" + from +

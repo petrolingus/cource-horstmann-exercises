@@ -18,6 +18,11 @@ public class Rectangle extends Shape {
     }
 
     @Override
+    public Rectangle clone() {
+        return new Rectangle(new Point(center.x, center.y), width, height);
+    }
+
+    @Override
     public String toString() {
         return "Rectangle[" +
                 "width=" + width +
